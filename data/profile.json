@@ -1,7 +1,7 @@
 {
   "name": "SheckHall",
   "title": "BYD",
-  "bio": "The lonely wanderer",
+  "bio": "The lonely wanderer\nhello",
   "avatar": "/static/my.jpg",
   "email": "13789176472@163.com",
   "phone": "13789176472",
@@ -10,5 +10,9 @@
   "website": "",
   "location": "",
   "greeting": "你好，我是",
-  "tagline": "欢迎来到我的个人主页"
+  "tagline": "欢迎来到我的个人主页",
+  "skills": null,
+  "timeline": null,
+  "interests": null,
+  "stats": null
 }
