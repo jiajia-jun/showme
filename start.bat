@@ -1,7 +1,7 @@
 @echo off
 echo Starting Web Application...
 echo.
-echo Server will run on: http://10.17.92.32:8080
+echo Server will run on: http://localhost:8080
 echo.
 
 REM Check if main.exe exists
