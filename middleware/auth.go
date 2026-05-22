@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"Goland/utils"
+	"webproject/utils"
 	"log"
 	"net/http"
 	"strings"

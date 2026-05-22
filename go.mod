@@ -1,4 +1,4 @@
-module Goland
+module webproject
 
 go 1.25
 

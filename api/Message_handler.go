@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"Goland/dao"
-	"Goland/model"
+	"webproject/dao"
+	"webproject/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"

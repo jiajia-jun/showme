@@ -14,37 +14,45 @@ There are no tests yet.
 
 ## Architecture
 
-Personal showcase website built with Gin (Go). Module name: `Goland`.
+Personal showcase website built with Gin (Go). Module name: `webproject`.
 
 **Public site (no login required):**
 - `/` — Single-page scrolling showcase (Hero → About → Contact)
 - `/admin` — Admin login + profile editor (JWT-protected)
 
 **Layers:**
-- `api/` — HTTP handlers and router (`BuildRouter_handler.go`)
-  - `Auth_handler.go` — Login handler
-  - `UpdatePassword_handler.go` — Password change handler
-  - `Profile_handler.go` — `GetPublicProfile` (public GET), `UpdateProfile` (protected PUT), `CheckAdminAuth` (protected GET)
-- `middleware/` — JWT auth (`auth.go`) and request logging (`logger.go`, wired in router)
-- `dao/` — Two data access layers:
-  - `userdata.go` — User credentials: `map[string]string` persisted to `E:\test\userdata.json`
+- `router/` — Route initialization (`init.go`): static files, public API, protected API group
+- `api/` — HTTP handlers (organized by feature)
+  - `auth_handler.go` — `LoginUser`, `UpdateUserPassword`
+  - `profile_handler.go` — `GetPublicProfile` (public GET), `UpdateProfile` (protected PUT), `CheckAdminAuth` (protected GET)
+  - `message_handler.go` — `GetMessages`, `CreateMessage`, `LikeMessage`, `DeleteMessage`
+- `middleware/` — JWT auth (`auth.go`), request logging (`logger.go`), static cache (`staticCache.go`)
+- `dao/` — Data access layers:
+  - `userdata.go` — User credentials: `map[string]string` persisted to `data/userdata.json`
   - `profiledata.go` — Profile info: `model.Profile` struct persisted to `./data/profile.json`
-- `model/` — `User` and `Profile` structs
+  - `messagedata.go` — Messages persisted to `./data/messages.json`
+  - `imagedata.go` — Image file reader
+- `model/` — Data models split by domain:
+  - `authModel.go` — `User`, `UpdatePassword`
+  - `profileModel.go` — `Profile`, `Skill`, `TimelineItem`, `Stat`
+  - `messageModel.go` — `Message`
+  - `image.go` — `ImageItem`, `ImagePath` constant
 - `utils/` — JWT token generation/parsing (HS256, 2-hour expiry)
 
 **Router structure:**
 - Public HTML: `GET /` → `index.html`, `GET /admin` → `admin.html`
-- Public API: `GET /api/profile`, `POST /api/login`, `POST /api/updatepassword`
-- Protected API (`/api` group with `AuthMiddleware()`): `PUT /api/profile`, `GET /api/admin/check`
+- Public API: `GET /api/profile`, `POST /api/login`, `POST /api/updatepassword`, `GET /api/messages`, `POST /api/messages`, `POST /api/messages/:id/like`
+- Protected API (`/api` group with `AuthMiddleware()`): `PUT /api/profile`, `GET /api/admin/check`, `DELETE /api/messages/:id`
 
 **JWT flow:** Login → server returns token → client stores in localStorage → `Authorization: Bearer <token>` → `AuthMiddleware` validates and injects `username` into Gin context.
 
 ## Important: Hardcoded Paths
 
-- User data JSON: `E:\test\userdata.json` (auto-created on first run if missing)
+- User data JSON: `data/userdata.json` (relative to working directory, auto-created on first run if missing)
 - Profile data JSON: `./data/profile.json` (relative to working directory, auto-created with defaults)
+- Message data JSON: `./data/messages.json` (relative to working directory, auto-created with defaults)
 
-The admin account must be created manually by adding an entry to `E:\test\userdata.json`, e.g., `{"admin": "yourpassword"}`.
+The admin account must be created manually by adding an entry to `data/userdata.json`, e.g., `{"admin": "yourpassword"}`.
 
 ## Frontend
 

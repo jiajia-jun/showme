@@ -31,30 +31,48 @@ go build -o main.exe     # 编译为可执行文件
 
 ```
 ├── main.go                          # 程序入口（数据初始化 + 自适应 HTTP/HTTPS 启动）
+├── router/
+│   └── init.go                      # 路由配置（静态文件、公开/受保护 API）
 ├── api/
-│   ├── InitiateRouter_handler.go    # 路由配置（静态文件、公开/受保护 API）
-│   ├── AdminLogin_handler.go        # 登录处理器
-│   ├── AdminProfile_handler.go      # 个人信息处理器（公开获取 + 管理员更新）
-│   ├── UpdatePassword_handler.go    # 密码修改处理器
-│   └── Message_handler.go           # 留言板处理器（CRUD + 点赞）
+│   ├── auth_handler.go              # 登录 + 密码修改处理器
+│   ├── profile_handler.go           # 个人信息处理器（公开获取 + 管理员更新 + token 校验）
+│   └── message_handler.go           # 留言板处理器（CRUD + 点赞）
 ├── middleware/
 │   ├── auth.go                      # JWT 验证中间件
 │   ├── logger.go                    # 请求日志中间件
 │   └── staticCache.go               # 静态资源缓存中间件（Cache-Control: 1年）
 ├── model/
-│   └── model.go                     # 数据模型（User, Profile, Message, Skill 等）
+│   ├── authModel.go                 # 认证相关模型（User, UpdatePassword）
+│   ├── profileModel.go              # 个人信息模型（Profile, Skill, TimelineItem, Stat）
+│   ├── messageModel.go              # 留言板模型（Message）
+│   └── image.go                     # 图片模型（ImageItem）
 ├── dao/
 │   ├── userdata.go                  # 用户凭据数据访问层
 │   ├── profiledata.go               # 个人信息数据访问层
-│   └── messagedata.go               # 留言板数据访问层
+│   ├── messagedata.go               # 留言板数据访问层
+│   └── imagedata.go                 # 图片数据访问层
 ├── utils/
 │   └── jwt_demo.go                  # JWT 生成/解析工具
 ├── static/
-│   ├── index.html / home.js         # 公开展示主页（打字机效果、粒子背景）
-│   ├── admin.html / admin.js        # 管理后台（登录 + 个人信息编辑）
-│   └── *.css                        # 样式文件
+│   ├── index.html                   # 公开展示主页（打字机效果、粒子背景）
+│   ├── admin.html                   # 管理后台（登录 + 个人信息编辑）
+│   ├── js/
+│   │   ├── home.js                  # 主页交互逻辑
+│   │   └── admin.js                 # 后台交互逻辑
+│   ├── css/
+│   │   ├── docsy-styles.css         # 设计系统 CSS 变量
+│   │   ├── showcase.css             # 展示页样式
+│   │   └── styles.css               # 通用样式
+│   ├── audio/
+│   │   ├── his-theme.mp3            # 背景音乐 《HisTheme》
+│   │   └── jian.mp3                 # 背景音乐 《涧》
+│   ├── image/                       # 相册图片
+│   └── img/
+│       └── my.jpg                   # 个人头像
 ├── data/
-│   └── profile.json                 # 个人信息持久化存储（自动创建）
+│   ├── userdata.json                # 用户凭据持久化存储（若不存在会自动创建）
+│   ├── profile.json                 # 个人信息持久化存储（若不存在会自动创建）
+│   └── messages.json                # 留言板持久化存储（若不存在会自动创建）
 ├── ssl/                             # SSL 证书存放目录（可选）
 │   ├── server.crt
 │   └── server.key

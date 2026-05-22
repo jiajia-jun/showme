@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"Goland/model"
+	"webproject/model"
 
 	"github.com/goccy/go-json"
 )
