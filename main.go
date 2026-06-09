@@ -52,7 +52,7 @@ func main() {
 	} else { // https启动
 		log.Println("启用HTTPS")
 		err := r.RunTLS("localhost:8443", lcrtPath, lkeyPath)
-		//err := r.RunTLS("26.126.204.192:8443", lcrtPath, lkeyPath)
+		
 
 		if err != nil {
 			log.Fatal(err)
