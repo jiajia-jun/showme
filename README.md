@@ -8,6 +8,7 @@
 - **认证**: JWT (HS256, 2小时过期)
 - **存储**: JSON 文件持久化
 - **前端**: 原生 HTML/CSS/JS，Canvas 粒子背景，响应式布局
+- **部署**：采用 Radmin_Lan 进行部署
 
 ## 快速开始😮
 
@@ -20,7 +21,7 @@ go build -o main.exe     # 编译为可执行文件
 双击 `start.bat` 也可以在 Windows 下快速启动😍😍（自动编译并运行），可以访问`localhost:8080`来查看效果。
 
 ## 启动模式🫡
-
+）
 程序启动时会自动检测 `ssl/Radmin_LAN/` 目录下的证书文件：
 
 - **证书存在** (`ssl/Radmin_LAN/server_LAN.crt` + `ssl/Radmin_LAN/server_LAN.key`): 以 HTTPS 模式启动，监听 `localhost:8443`
