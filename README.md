@@ -1,4 +1,4 @@
-# PersonalWebsite
+# showme
 
 基于本人曾经写的一个后端框架，使用 ClaudeCode 辅助编程，采用 Go/Gin 框架的个人展示网站，包含公开展示页面、留言板，以及 JWT 保护的管理后台，支持 HTTP/HTTPS 自适应启动。
 
